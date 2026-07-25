@@ -1,0 +1,23 @@
+class Solution:
+    def partition(self, s: str) -> List[List[str]]:
+        res = []
+        def dfs(cur, i):
+            if i == len(s):
+                res.append(cur.copy())
+            for j in range(i, len(s)):
+                if isPali(s,i,j):
+                    cur.append(s[i:j+1])
+                    dfs(cur, j+1)
+                    cur.pop()
+        
+        def isPali(s,i,j):
+            l = i
+            r = j
+            while l < r:
+                if s[l]!=s[r]:
+                    return False
+                l += 1
+                r -= 1
+            return True
+        dfs([],0)
+        return res
